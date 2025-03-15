@@ -26,7 +26,7 @@ Controversial stimuli are images that cause different computer vision models to 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/controversial_stimuli_tutorial.git
+git clone https://github.com/chenghands-on/controversial_stimuli_tutorial.git
 cd controversial_stimuli_tutorial
 
 # Create conda environment
