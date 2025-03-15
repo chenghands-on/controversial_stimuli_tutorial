@@ -130,10 +130,10 @@ dmypy.json
 .pyre/
 
 # Project specific
-# 大型生成结果文件，可以选择性排除
-optimization_results/*/
-# 但保留目录结构
-!optimization_results/.gitkeep
+# 大型生成结果文件和模型目录完全排除
+optimization_results/
+robustness_models/
+models/
 
 # 图像文件
 figures/*.png
