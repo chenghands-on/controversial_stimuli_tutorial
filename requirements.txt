@@ -1,0 +1,17 @@
+torch>=2.0.0
+torchvision>=0.15.0
+diffusers>=0.19.0
+transformers>=4.31.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pandas>=2.0.0
+numpy>=1.24.0
+pillow>=9.4.0
+tqdm>=4.65.0
+attrdict>=2.0.1
+colored>=1.4.4
+timm>=0.9.2
+requests>=2.28.0
+ipython>=8.10.0
+robustness @ git+https://github.com/brainsandmachines/robustness
+torch_lucent @ git+https://github.com/brainsandmachines/lucent.git

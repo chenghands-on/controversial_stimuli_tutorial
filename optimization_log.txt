@@ -1,0 +1,117 @@
+/mnt/data/chenghan/miniconda3/envs/contro_stim_env/lib/python3.11/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/mnt/data/chenghan/miniconda3/envs/contro_stim_env/lib/python3.11/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/mnt/data/chenghan/miniconda3/envs/contro_stim_env/lib/python3.11/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=Inception_V3_Weights.IMAGENET1K_V1`. You can also use `weights=Inception_V3_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+加载模型 Resnet50 和 InceptionV3...
+loaded resnet50 into cuda:0.
+loaded inception_v3 into cuda:1.
+开始优化: Resnet50 识别 Persian cat vs InceptionV3 识别 Weimaraner...
+Using Hugging Face cache directory: /mnt/data/chenghan/huggingface_cache
+Loading diffusion model: OFA-Sys/small-stable-diffusion-v0
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]An error occurred while trying to fetch /mnt/data/chenghan/huggingface_cache/models--OFA-Sys--small-stable-diffusion-v0/snapshots/38e10e5e71e8fbf717a47a81e7543cd01c1a8140/unet: Error no file named diffusion_pytorch_model.safetensors found in directory /mnt/data/chenghan/huggingface_cache/models--OFA-Sys--small-stable-diffusion-v0/snapshots/38e10e5e71e8fbf717a47a81e7543cd01c1a8140/unet.
+Defaulting to unsafe serialization. Pass `allow_pickle=False` to raise an error instead.
+Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:02,  2.48it/s]The config attributes {'predict_epsilon': True} were passed to DPMSolverMultistepScheduler, but are not expected and will be ignored. Please verify your scheduler_config.json configuration file.
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:00<00:00,  6.20it/s]An error occurred while trying to fetch /mnt/data/chenghan/huggingface_cache/models--OFA-Sys--small-stable-diffusion-v0/snapshots/38e10e5e71e8fbf717a47a81e7543cd01c1a8140/vae: Error no file named diffusion_pytorch_model.safetensors found in directory /mnt/data/chenghan/huggingface_cache/models--OFA-Sys--small-stable-diffusion-v0/snapshots/38e10e5e71e8fbf717a47a81e7543cd01c1a8140/vae.
+Defaulting to unsafe serialization. Pass `allow_pickle=False` to raise an error instead.
+Loading pipeline components...: 100%|██████████| 6/6 [00:00<00:00,  7.38it/s]
+/mnt/data/chenghan/miniconda3/envs/contro_stim_env/lib/python3.11/site-packages/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py:221: FutureWarning: The configuration file of this scheduler: DPMSolverMultistepScheduler {
+  "_class_name": "DPMSolverMultistepScheduler",
+  "_diffusers_version": "0.32.2",
+  "algorithm_type": "dpmsolver++",
+  "beta_end": 0.012,
+  "beta_schedule": "scaled_linear",
+  "beta_start": 0.00085,
+  "dynamic_thresholding_ratio": 0.995,
+  "euler_at_final": false,
+  "final_sigmas_type": "zero",
+  "flow_shift": 1.0,
+  "lambda_min_clipped": -Infinity,
+  "lower_order_final": true,
+  "num_train_timesteps": 1000,
+  "predict_epsilon": true,
+  "prediction_type": "epsilon",
+  "rescale_betas_zero_snr": false,
+  "sample_max_value": 1.0,
+  "solver_order": 2,
+  "solver_type": "midpoint",
+  "steps_offset": 0,
+  "thresholding": false,
+  "timestep_spacing": "linspace",
+  "trained_betas": null,
+  "use_beta_sigmas": false,
+  "use_exponential_sigmas": false,
+  "use_flow_sigmas": false,
+  "use_karras_sigmas": false,
+  "use_lu_lambdas": false,
+  "variance_type": null
+}
+ is outdated. `steps_offset` should be set to 1 instead of 0. Please make sure to update the config accordingly as leaving `steps_offset` might led to incorrect results in future versions. If you have downloaded this checkpoint from the Hugging Face Hub, it would be very nice if you could open a Pull request for the `scheduler/scheduler_config.json` file
+  deprecate("steps_offset!=1", "1.0.0", deprecation_message, standard_warn=False)
+You have disabled the safety checker for <class 'diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline'> by passing `safety_checker=None`. Ensure that you abide to the conditions of the Stable Diffusion license and do not expose unfiltered results in services or applications open to the public. Both the diffusers team and Hugging Face strongly recommend to keep the safety filter enabled in all public facing circumstances, disabling it only for use-cases that involve analyzing network behavior or auditing its results. For more information, please have a look at https://github.com/huggingface/diffusers/pull/254 .
+Generating initial image from diffusion model...
+  0%|          | 0/30 [00:00<?, ?it/s]  3%|▎         | 1/30 [00:00<00:03,  8.07it/s] 20%|██        | 6/30 [00:00<00:00, 30.22it/s] 33%|███▎      | 10/30 [00:00<00:00, 32.77it/s] 47%|████▋     | 14/30 [00:00<00:00, 33.95it/s] 60%|██████    | 18/30 [00:00<00:00, 34.60it/s] 73%|███████▎  | 22/30 [00:00<00:00, 35.00it/s] 87%|████████▋ | 26/30 [00:00<00:00, 35.24it/s]100%|██████████| 30/30 [00:00<00:00, 35.40it/s]100%|██████████| 30/30 [00:00<00:00, 33.43it/s]
+Starting direct optimization from the diffusion-generated image...
+resnet50: Persian cat   4.43%, Weimaraner   0.03% │ inception_v3: Persian cat   2.81%, Weimaraner   0.01% │ 0:loss=9.05e+00
+resnet50: Persian cat   3.96%, Weimaraner   0.08% │ inception_v3: Persian cat   1.74%, Weimaraner   0.15% │ 1:loss=6.50e+00
+resnet50: Persian cat   6.33%, Weimaraner   0.06% │ inception_v3: Persian cat   1.25%, Weimaraner   1.18% │ 2:loss=4.44e+00
+resnet50: Persian cat   9.32%, Weimaraner   0.13% │ inception_v3: Persian cat   9.04%, Weimaraner   9.35% │ 3:loss=2.38e+00
+resnet50: Persian cat  99.89%, Weimaraner   0.00% │ inception_v3: Persian cat   0.02%, Weimaraner  91.20% │ 4:loss=9.21e-02
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  98.06% │ 5:loss=2.10e-02
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.01%, Weimaraner  96.57% │ 6:loss=3.52e-02
+resnet50: Persian cat  99.95%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  98.92% │ 7:loss=1.39e-02
+resnet50: Persian cat  99.63%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.06% │ 8:loss=1.39e-02
+resnet50: Persian cat  98.33%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.03% │ 9:loss=2.09e-02
+resnet50: Persian cat  99.41%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  98.74% │ 10:loss=1.68e-02
+resnet50: Persian cat  99.66%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  98.77% │ 11:loss=1.58e-02
+resnet50: Persian cat  99.69%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.24% │ 12:loss=1.26e-02
+resnet50: Persian cat  99.70%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.47% │ 13:loss=1.12e-02
+resnet50: Persian cat  99.69%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.58% │ 14:loss=1.06e-02
+resnet50: Persian cat  99.66%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.61% │ 15:loss=1.06e-02
+resnet50: Persian cat  99.66%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.65% │ 16:loss=1.04e-02
+resnet50: Persian cat  99.66%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.69% │ 17:loss=1.02e-02
+resnet50: Persian cat  99.71%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.73% │ 18:loss=9.73e-03
+resnet50: Persian cat  99.76%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.77% │ 19:loss=9.30e-03
+resnet50: Persian cat  99.79%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.80% │ 20:loss=8.97e-03
+resnet50: Persian cat  99.82%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.82% │ 21:loss=8.73e-03
+resnet50: Persian cat  99.84%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.84% │ 22:loss=8.52e-03
+resnet50: Persian cat  99.86%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.86% │ 23:loss=8.35e-03
+resnet50: Persian cat  99.88%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.87% │ 24:loss=8.21e-03
+resnet50: Persian cat  99.89%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.88% │ 25:loss=8.08e-03
+resnet50: Persian cat  99.91%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.88% │ 26:loss=7.97e-03
+resnet50: Persian cat  99.92%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.89% │ 27:loss=7.88e-03
+resnet50: Persian cat  99.93%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.90% │ 28:loss=7.79e-03
+resnet50: Persian cat  99.94%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.91% │ 29:loss=7.71e-03
+resnet50: Persian cat  99.95%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.92% │ 30:loss=7.63e-03
+resnet50: Persian cat  99.95%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.92% │ 31:loss=7.57e-03
+resnet50: Persian cat  99.96%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.93% │ 32:loss=7.50e-03
+resnet50: Persian cat  99.96%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.94% │ 33:loss=7.44e-03
+resnet50: Persian cat  99.96%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.94% │ 34:loss=7.39e-03
+resnet50: Persian cat  99.97%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.95% │ 35:loss=7.35e-03
+resnet50: Persian cat  99.97%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.95% │ 36:loss=7.31e-03
+resnet50: Persian cat  99.97%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.96% │ 37:loss=7.28e-03
+resnet50: Persian cat  99.97%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.96% │ 38:loss=7.25e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.96% │ 39:loss=7.23e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.97% │ 40:loss=7.20e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.97% │ 41:loss=7.19e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.97% │ 42:loss=7.17e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.97% │ 43:loss=7.15e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.97% │ 44:loss=7.14e-03
+resnet50: Persian cat  99.98%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 45:loss=7.13e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 46:loss=7.12e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 47:loss=7.11e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 48:loss=7.10e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 49:loss=7.09e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 50:loss=7.09e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 51:loss=7.08e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 52:loss=7.07e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 53:loss=7.07e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 54:loss=7.06e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 55:loss=7.06e-03
+resnet50: Persian cat  99.99%, Weimaraner   0.00% │ inception_v3: Persian cat   0.00%, Weimaraner  99.98% │ 56:loss=7.05e-03
+converged (n_steps=57)
+controversiality score: 1.00
+保存图像 1/1 到 diffusion_results/Resnet50-Persian_cat_vs_InceptionV3-Weimaraner_seed42_score0.9999.png，对抗性分数: 0.9999
+成功: 对抗性分数 0.9999 达到或超过阈值 0.5
+优化完成。结果保存在 diffusion_results 目录中。
