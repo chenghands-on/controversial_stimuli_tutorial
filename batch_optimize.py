@@ -159,7 +159,7 @@ def prepare_optimization_parameters(optim_method):
             'optimizer_kwargs': {'lr': 1e-1, 'betas': (0.9, 0.999), 'eps': 1e-8},
             'hf_cache_dir': '/mnt/data/chenghan/huggingface_cache',
             'model_id': 'OFA-Sys/small-stable-diffusion-v0',  # 使用小型Stable Diffusion模型，约1GB
-            'num_inference_steps': 50,  # 减少推理步骤数以降低内存使用
+            'num_inference_steps': 30,  # 减少推理步骤数以降低内存使用
         })
     elif optim_method=='diffusion_noise_unconditional':
         # 添加无条件生成的方法
@@ -170,7 +170,7 @@ def prepare_optimization_parameters(optim_method):
             'optimizer_kwargs': {'lr': 1e-1, 'betas': (0.9, 0.999), 'eps': 1e-8},
             'hf_cache_dir': '/mnt/data/chenghan/huggingface_cache',
             'model_id': 'OFA-Sys/small-stable-diffusion-v0',  # 使用小型Stable Diffusion模型，约1GB
-            'num_inference_steps': 10,  # 减少推理步骤数以降低内存使用
+            'num_inference_steps': 50,  # 减少推理步骤数以降低内存使用
             'custom_prompt_processor': empty_prompt_processor,  # 使用自定义提示词处理器
         })
     else: # indirect optimization, define param_f and transforms
@@ -203,12 +203,27 @@ def design_synthesis_experiment(exp_name):
         class_dict=eval(requests.get(imagenet_dict_url).text)
 
         if exp_name=='8_random_classes':
-            model_pairs=[['Resnet_50_l2_eps5','Wide_Resnet50_2_l2_eps5']]
+            # 修改此处，使用ViTL16和ResNeXt101_32x32d作为模型对
+            model_pairs=[['ViTL16','ResNeXt101_32x32d']]
             n_classes=8
             all_class_idx=list(class_dict.keys())
             random.seed(1)
             class_idx=list(random.sample(all_class_idx,n_classes))
-            class_idx_pairs=itertools.product(class_idx,repeat=2)
+            
+            # 生成所有类别的排列（而非组合），但排除相同类别的情况
+            class_idx_pairs=[]
+            for i in range(n_classes):
+                for j in range(n_classes):
+                    if i != j:  # 排除相同类别对
+                        class_idx_pairs.append([class_idx[i], class_idx[j]])
+            
+            print(f"共生成了 {len(class_idx_pairs)} 个类别对（排列，排除相同类别）")
+            print(f"理论数量: 8*7 = {8*7}")
+            for idx, pair in enumerate(class_idx_pairs[:5]):
+                print(f"类别对{idx+1}: {class_dict[pair[0]]} vs {class_dict[pair[1]]}")
+            if len(class_idx_pairs) > 5:
+                print("... 仅展示前5个类别对 ...")
+                
         elif exp_name=='cat_vs_dog':
             model_names=['Resnet50','InceptionV3','Resnet_50_l2_eps5','Wide_Resnet50_2_l2_eps5', 'ViTB16', 'ViTL16', 'ResNeXt101_32x32d']
             model_pairs=itertools.product(model_names,repeat=2)
@@ -325,7 +340,7 @@ def grand_batch(experiments,optimization_methods,target_folder='optimization_res
         cleanup_home_hf_cache()
     
     # 添加版本号，确保每次运行使用新的文件夹
-    version = "v3"
+    version = "v4"
     
     task_list=[]
     for exp_name in experiments:

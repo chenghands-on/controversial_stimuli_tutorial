@@ -52,7 +52,7 @@ def plot_im_matrix(im_matrix,x_class,y_class,c,subplot_spec=None,cmap_matrix=Non
                         figure=fig,wspace=0,hspace=0,left=0,right=1,bottom=0,top=1)
         
         # 添加总标题，减小字体大小并修改内容
-        fig.suptitle('Controversial Stimuli from Unconditional Diffusion Model', fontsize=12, y=0.98)
+        # fig.suptitle('Controversial Stimuli from Unconditional Diffusion Model', fontsize=12, y=0.98)
     else:
         fig=plt.gcf()
         gs0 = gridspec.GridSpecFromSubplotSpec(nrows=3, ncols=3,
@@ -366,7 +366,7 @@ if __name__ == '__main__':
     # 创建图表
     fig = plt.figure(figsize=(12, 9), facecolor='white')
     # 添加标题，减小字体大小并修改内容
-    fig.suptitle("Controversial Stimuli from Unconditional Diffusion Model", fontsize=12)
+    # fig.suptitle("Controversial Stimuli from Unconditional Diffusion Model", fontsize=12)
     
     # 使用正确的文件夹名称，不需要在主函数再拼接路径
     folder_name = 'diffusion_latent_optim_cat_vs_dog_v2'

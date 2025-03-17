@@ -29,7 +29,10 @@ from plotting_utils import get_png_file_info
 model_name_dict={'InceptionV3':'Inception-v3',
 'Resnet50':'ResNet-50',
 'Resnet_50_l2_eps5':'$\ell_2$-adv-trained (${\epsilon=5}$) ResNet-50',
-'Wide_Resnet50_2_l2_eps5':'$\ell_2$-adv-trained (${\epsilon=5}$) WRN-50-2'}
+'Wide_Resnet50_2_l2_eps5':'$\ell_2$-adv-trained (${\epsilon=5}$) WRN-50-2',
+'ViTL16':'ViT-L/16',
+'ViTB16':'ViT-B/16',
+'ResNeXt101_32x32d':'ResNeXt-101 (32×32d)'}
 
 
 def plot_im_matrix(im_matrix,rows_model,columns_model,c,class_names,subplot_spec=None,panel_label=None):
@@ -142,7 +145,7 @@ def plot_single_model_pair_multiple_class_pairs_controversial_stimuli_matrix(sub
 
     class_names=list(np.unique(list(png_files_info.model_1_target)+list(png_files_info.model_2_target)))
     n_classes=len(class_names)
-    im_matrix=np.empty((n_classes,n_classes), dtype=np.object)
+    im_matrix=np.empty((n_classes,n_classes), dtype=object)
 
     for png_file,model_1_target,model_2_target in tqdm(zip(png_files_info.filename,png_files_info.model_1_target,png_files_info.model_2_target)):
 
@@ -169,10 +172,13 @@ def get_subfolders_properties(subfolders):
                  })
     return pd.DataFrame(list_of_dicts)
 
-def plot_8_random_classes_figure(optim_method='direct',target_parent_folder='figures',image_folder='optimization_results'):
+def plot_8_random_classes_figure(optim_method='direct',target_parent_folder='figures',image_folder='optimization_results',specific_folder=None,rows_model=None,columns_model=None,version=None):
 
-    rows_model='Resnet_50_l2_eps5'
-    columns_model='Wide_Resnet50_2_l2_eps5'
+    # 默认模型（如果未指定）
+    if rows_model is None:
+        rows_model='Resnet_50_l2_eps5'
+    if columns_model is None:
+        columns_model='Wide_Resnet50_2_l2_eps5'
 
     n_classes=8
 
@@ -188,15 +194,29 @@ def plot_8_random_classes_figure(optim_method='direct',target_parent_folder='fig
     c.major_margin=5/72
     c.inch_per_major_title_space=15/72
     c.line_width=0.5
+    c.subpanel_letter_x=-0.2
+    c.subpanel_letter_y=0.0
+    c.subpanel_letter_font_size=12
     c.inch_per_image=(image_width-c.inch_per_major_title_space-(c.inch_per_minor_title_space+c.minor_margin)*2-c.between_subplot_margin-c.major_margin)/n_classes
 
     upscale=128
-    stimuli_path=os.path.join(image_folder,optim_method+'_optim_8_random_classes')
+    
+    # 允许指定具体目录
+    if specific_folder:
+        stimuli_path=os.path.join(image_folder, specific_folder)
+    else:
+        # 如果指定了版本号，则使用该版本
+        if version:
+            stimuli_path=os.path.join(image_folder, optim_method+'_optim_8_random_classes_'+version)
+        else:
+            stimuli_path=os.path.join(image_folder, optim_method+'_optim_8_random_classes')
+    
+    print(f"Looking for images in: {stimuli_path}")
 
     plt.close('all')
     fig=plt.figure(figsize=(image_width,image_width))
 
-      # form title/content/margin 3x3 gridspec
+    # form title/content/margin 3x3 gridspec
     gs0 = gridspec.GridSpec(nrows=3, ncols=3,
                     height_ratios=[c.inch_per_major_title_space,image_width-c.major_margin-c.inch_per_major_title_space,c.major_margin],
                     width_ratios=[c.inch_per_major_title_space,image_width-c.major_margin-c.inch_per_major_title_space,c.major_margin],
@@ -204,7 +224,16 @@ def plot_8_random_classes_figure(optim_method='direct',target_parent_folder='fig
 
     plot_single_model_pair_multiple_class_pairs_controversial_stimuli_matrix('',rows_model=rows_model,columns_model=columns_model,c=c,stimuli_path=stimuli_path,subplot_spec=gs0[1,1])
 
-    fig_fname=optim_method+'_optim_'+rows_model+"_vs_"+columns_model+".pdf"
+    # 使用具体目录名生成图像文件名
+    if specific_folder:
+        fig_fname=specific_folder.replace('/', '_')+"_"+rows_model+"_vs_"+columns_model+".pdf"
+    else:
+        # 添加版本号
+        if version:
+            fig_fname=optim_method+'_optim_'+rows_model+"_vs_"+columns_model+"_"+version+".pdf"
+        else:
+            fig_fname=optim_method+'_optim_'+rows_model+"_vs_"+columns_model+".pdf"
+            
     pathlib.Path(target_parent_folder).mkdir(parents=True, exist_ok=True)
     plt.savefig(os.path.join(target_parent_folder,fig_fname),dpi=upscale/c.inch_per_image)
     plt.savefig(os.path.join(target_parent_folder,fig_fname.replace('.pdf','.png')),dpi=upscale/c.inch_per_image)
@@ -212,22 +241,35 @@ def plot_8_random_classes_figure(optim_method='direct',target_parent_folder='fig
     print('saved to',os.path.join(target_parent_folder,fig_fname))
 
 
-def plot_batch(optimization_methods=None,image_folder='optimization_results',figure_folder='figures'):
+def plot_batch(optimization_methods=None,image_folder='optimization_results',figure_folder='figures',specific_folder=None,rows_model=None,columns_model=None,version=None):
   if optimization_methods is None:
     optimization_methods=['direct','jittered','decorrelated','CPPN','GAN-pool5','GAN-fc6','GAN-fc7','GAN-fc8']
   for optim_method in optimization_methods:
-    plot_8_random_classes_figure(optim_method=optim_method,image_folder=image_folder,target_parent_folder=figure_folder)
+    plot_8_random_classes_figure(optim_method=optim_method,image_folder=image_folder,target_parent_folder=figure_folder,
+                                specific_folder=specific_folder,rows_model=rows_model,columns_model=columns_model,version=version)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='plot_cat_vs_dog_figure')
     parser.add_argument(
         "--optimization_methods",nargs='+',
-        choices= ['direct','jittered','decorrelated','CPPN','GAN-pool5','GAN-fc6','GAN-fc7','GAN-fc8'],
+        choices= ['direct','jittered','decorrelated','CPPN','GAN-pool5','GAN-fc6','GAN-fc7','GAN-fc8','diffusion_noise','diffusion_pixel','diffusion_latent'],
         default= ['direct','jittered','decorrelated','CPPN','GAN-pool5','GAN-fc6','GAN-fc7','GAN-fc8'])
     parser.add_argument(
-        "--image_folder",nargs=1,default="optimization_results")
+        "--image_folder",type=str,default="optimization_results")
     parser.add_argument(
-        "--figure_folder",nargs=1,default="figures")
+        "--figure_folder",type=str,default="figures")
+    parser.add_argument(
+        "--specific_folder",type=str,default=None,
+        help="Specific folder containing images (overrides optimization_methods)")
+    parser.add_argument(
+        "--rows_model",type=str,default=None,
+        help="Model to use for rows (e.g., ViTL16)")
+    parser.add_argument(
+        "--columns_model",type=str,default=None,
+        help="Model to use for columns (e.g., ResNeXt101_32x32d)")
+    parser.add_argument(
+        "--version",type=str,default=None,
+        help="Version suffix for the folder (e.g., v3)")
     args=parser.parse_args()
 
     plot_batch(**vars(args))
